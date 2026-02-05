@@ -10,27 +10,27 @@ namespace Training.Controllers
         public static List<string> namesList = new List<string> { "Basel", "Belal", "Haitham" };
 
         [HttpGet]
-        public static List<string> GetNames()
+        public List<string> GetNames()
         {
             return namesList;
         }
 
         [HttpPost]
-        public static List<string> AddName(string newName)
+        public List<string> AddName(string newName)
         {
             namesList.Add(newName);
             return namesList;
         }
 
         [HttpPut]
-        public static List<string> UpdateName(int oldIndex, string newName)
+        public List<string> UpdateName(int oldIndex, string newName)
         {
             namesList[oldIndex] = newName;
             return namesList;
         }
 
         [HttpDelete]
-        public static List<string> DeleteName(int index)
+        public List<string> DeleteName(int index)
         {
             namesList.RemoveAt(index);
             return namesList;
