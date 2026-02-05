@@ -15,31 +15,60 @@ namespace Training.Controllers
             new Category { Name = "Cat3" }
         };
 
-        [HttpGet]
-        public List<Category> GetCategories()
+        [HttpGet("GetAllCategories")]
+        public IActionResult GetCategories()
         {
-            return categoriesList;
+            return Ok(categoriesList);
         }
 
         [HttpPost]
-        public List<Category> AddCategory(string newName)
+        public IActionResult AddCategory(string newName)
         {
-            categoriesList.Add(new Category { Name = newName });
-            return categoriesList;
+            if (newName.Length > 20)
+            {
+                return BadRequest("Very Long Name");
+            }
+
+            else
+            {
+                categoriesList.Add(new Category { Name = newName });
+                return Created();
+            }
         }
 
         [HttpPut]
-        public List<Category> UpdateCategory(int oldIndex, string newName)
+        public IActionResult UpdateCategory(int oldIndex, string newName)
         {
-            categoriesList[oldIndex].Name = newName;
-            return categoriesList;
+            if (oldIndex >= categoriesList.Count)
+            {
+                return NotFound("Out Of Bound Index");
+            }
+
+            else if (newName.Length > 20)
+            {
+                return BadRequest("Very Long Name");
+            }
+
+            else
+            {
+                categoriesList[oldIndex].Name = newName;
+                return Created();
+            }
         }
 
         [HttpDelete]
-        public List<Category> DeleteCategory(int index)
+        public IActionResult DeleteCategory(int index)
         {
-            categoriesList.RemoveAt(index);
-            return categoriesList;
+            if (index >= categoriesList.Count)
+            {
+                return NotFound("Out Of Bound Index");
+            }
+
+            else
+            {
+                categoriesList.RemoveAt(index);
+                return Created();
+            }
         }
     }
 }
