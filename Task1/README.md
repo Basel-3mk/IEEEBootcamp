@@ -1,6 +1,6 @@
 # Many-To-Many Relationship
 Is basically an item a is connected to more than one item b,
-And item b is connected to more than one item a.
+and item b is connected to more than one item a.
 
 ## Example
 Each company has many employees,
