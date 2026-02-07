@@ -12,10 +12,10 @@ public class Enrollment
     public Guid CourseId { get; set; }
 
     [ForeignKey("StudentId")]
-    public Student Student { get; set; } = null!;
+    public Student Student { get; set; }
 
     [ForeignKey("CourseId")]
-    public Course Course { get; set; } = null!;
+    public Course Course { get; set; }
 
     [Required]
     public DateOnly StartDate { get; set; }
