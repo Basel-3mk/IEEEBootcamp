@@ -58,9 +58,9 @@ public class CategoryController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateCategory([FromRoute] Guid id, [FromBody] string newName)
     {
-        var category = _context.categories.Find(id);
+        var oldCategory = _context.categories.Find(id);
 
-        if (category == null)
+        if (oldCategory == null)
         {
             return NotFound();
         }
@@ -72,7 +72,7 @@ public class CategoryController : ControllerBase
 
         else
         {
-            category.Name = newName;
+            oldCategory.Name = newName;
             _context.SaveChanges();
             return Created();
         }
