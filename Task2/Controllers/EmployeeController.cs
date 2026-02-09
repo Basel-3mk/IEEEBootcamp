@@ -13,7 +13,7 @@ public class EmployeeController : ControllerBase
 {
     private readonly AppDbContext _context;
 
-    EmployeeController(AppDbContext context)
+    public EmployeeController(AppDbContext context)
     {
         _context = context;
     }
@@ -21,7 +21,7 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     public IActionResult GetEmployees()
     {
-        var employees = _context.employees.Include(curEmployee => curEmployee.DepartmentId).Select(curEmployee => new EmployeeResponseDTO
+        var employees = _context.employees.Include(curEmployee => curEmployee.Department).Select(curEmployee => new EmployeeResponseDTO
         {
             Id = curEmployee.Id,
             Name = curEmployee.Name,
@@ -35,7 +35,7 @@ public class EmployeeController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetEmployeeById([FromRoute] Guid id)
     {
-        var employee = _context.employees.Include(curEmployee => curEmployee.DepartmentId).Select(curEmployee => new EmployeeResponseDTO
+        var employee = _context.employees.Include(curEmployee => curEmployee.Department).Select(curEmployee => new EmployeeResponseDTO
         {
             Id = curEmployee.Id,
             Name = curEmployee.Name,

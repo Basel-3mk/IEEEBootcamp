@@ -11,7 +11,7 @@ public class DepartmentController : ControllerBase
 {
     private readonly AppDbContext _context;
 
-    DepartmentController(AppDbContext context)
+    public DepartmentController(AppDbContext context)
     {
         _context = context;
     }

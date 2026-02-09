@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using Task2.Models;
 
 namespace Task2.Database;
@@ -37,17 +38,20 @@ public class AppDbContext : DbContext
 
         var employee1 = new Employee
         {
-            Name = "Basel"
+            Name = "Basel",
+            DepartmentId = department1.Id
         };
 
         var employee2 = new Employee
         {
-            Name = "Haitham"
+            Name = "Haitham",
+            DepartmentId = department2.Id
         };
 
         var employee3 = new Employee
         {
-            Name = "Belal"
+            Name = "Belal",
+            DepartmentId = department3.Id
         };
 
         modelBuilder.Entity<Employee>().HasData(employee1, employee2, employee3);
