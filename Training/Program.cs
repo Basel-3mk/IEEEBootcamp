@@ -10,6 +10,14 @@ builder.Services.AddSwaggerGen();
 string connectionString = "Server=BASEL;Database=TrainingDB;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

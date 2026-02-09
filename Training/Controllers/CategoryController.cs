@@ -16,7 +16,7 @@ public class CategoryController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("GetAllCategories")]
+    [HttpGet]
     public IActionResult GetCategories()
     {
         var categories = _context.categories.ToList();
