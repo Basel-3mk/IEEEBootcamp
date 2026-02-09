@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=BASEL;Database=TrainingDB;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True"));
+
+string connectionString = "Server=BASEL;Database=TrainingDB;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True";
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 

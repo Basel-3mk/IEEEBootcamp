@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Training.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMig : Migration
+    public partial class Mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,6 +43,26 @@ namespace Training.Migrations
                         principalTable: "categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("0108af94-deda-496c-b9b3-33c0ab507c48"), "Al-Jabari" },
+                    { new Guid("1b153585-b325-4374-817b-03da591d889a"), "Al-Amleh" },
+                    { new Guid("298afab7-02cb-4d3c-943f-a0a16511b5ba"), "Al-Hroub" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "products",
+                columns: new[] { "Id", "CategoryId", "Name", "Price" },
+                values: new object[,]
+                {
+                    { new Guid("364d0d40-8fa0-45d4-adc1-c9caca868b62"), new Guid("0108af94-deda-496c-b9b3-33c0ab507c48"), "Basel", 1 },
+                    { new Guid("5b6bf0de-4275-43b4-9545-59a46b437ac9"), new Guid("298afab7-02cb-4d3c-943f-a0a16511b5ba"), "Haitham", 1 },
+                    { new Guid("a000294e-6be2-473d-a933-ab964c32dc34"), new Guid("1b153585-b325-4374-817b-03da591d889a"), "Belal", 1 }
                 });
 
             migrationBuilder.CreateIndex(

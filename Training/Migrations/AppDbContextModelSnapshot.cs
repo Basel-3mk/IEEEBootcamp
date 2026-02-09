@@ -36,6 +36,23 @@ namespace Training.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0108af94-deda-496c-b9b3-33c0ab507c48"),
+                            Name = "Al-Jabari"
+                        },
+                        new
+                        {
+                            Id = new Guid("298afab7-02cb-4d3c-943f-a0a16511b5ba"),
+                            Name = "Al-Hroub"
+                        },
+                        new
+                        {
+                            Id = new Guid("1b153585-b325-4374-817b-03da591d889a"),
+                            Name = "Al-Amleh"
+                        });
                 });
 
             modelBuilder.Entity("Training.Models.Product", b =>
@@ -60,6 +77,29 @@ namespace Training.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("364d0d40-8fa0-45d4-adc1-c9caca868b62"),
+                            CategoryId = new Guid("0108af94-deda-496c-b9b3-33c0ab507c48"),
+                            Name = "Basel",
+                            Price = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("5b6bf0de-4275-43b4-9545-59a46b437ac9"),
+                            CategoryId = new Guid("298afab7-02cb-4d3c-943f-a0a16511b5ba"),
+                            Name = "Haitham",
+                            Price = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("a000294e-6be2-473d-a933-ab964c32dc34"),
+                            CategoryId = new Guid("1b153585-b325-4374-817b-03da591d889a"),
+                            Name = "Belal",
+                            Price = 1
+                        });
                 });
 
             modelBuilder.Entity("Training.Models.Product", b =>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Training.Database;
 using Training.Models;
 
 namespace Training.Controllers;
@@ -8,21 +9,38 @@ namespace Training.Controllers;
 [ApiController]
 public class CategoryController : ControllerBase
 {
-    public static List<Category> categoriesList = new List<Category>
+    private readonly AppDbContext _context;
+
+    public CategoryController(AppDbContext context)
     {
-        new Category { Name = "Cat1" },
-        new Category { Name = "Cat2" },
-        new Category { Name = "Cat3" }
-    };
+        _context = context;
+    }
 
     [HttpGet("GetAllCategories")]
     public IActionResult GetCategories()
     {
-        return Ok(categoriesList);
+        var categories = _context.categories.ToList();
+        return Ok(categories);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetCategoryById(Guid id)
+    {
+        var category = _context.categories.Find(id);
+
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        else
+        {
+            return Ok(category);
+        }
     }
 
     [HttpPost]
-    public IActionResult AddCategory(string newName)
+    public IActionResult AddCategory([FromBody] string newName)
     {
         if (newName.Length > 20)
         {
@@ -31,17 +49,20 @@ public class CategoryController : ControllerBase
 
         else
         {
-            categoriesList.Add(new Category { Name = newName });
+            _context.categories.Add(new Category { Name = newName });
+            _context.SaveChanges();
             return Created();
         }
     }
 
-    [HttpPut]
-    public IActionResult UpdateCategory(int oldIndex, string newName)
+    [HttpPut("{id}")]
+    public IActionResult UpdateCategory([FromRoute] Guid id, [FromBody] string newName)
     {
-        if (oldIndex >= categoriesList.Count)
+        var category = _context.categories.Find(id);
+
+        if (category == null)
         {
-            return NotFound("Out Of Bound Index");
+            return NotFound();
         }
 
         else if (newName.Length > 20)
@@ -51,23 +72,27 @@ public class CategoryController : ControllerBase
 
         else
         {
-            categoriesList[oldIndex].Name = newName;
+            category.Name = newName;
+            _context.SaveChanges();
             return Created();
         }
     }
 
-    [HttpDelete]
-    public IActionResult DeleteCategory(int index)
+    [HttpDelete ("{id}")]
+    public IActionResult DeleteCategory([FromRoute] Guid id)
     {
-        if (index >= categoriesList.Count)
+        var category = _context.categories.Find(id);
+
+        if (category == null)
         {
-            return NotFound("Out Of Bound Index");
+            return NotFound();
         }
 
         else
         {
-            categoriesList.RemoveAt(index);
-            return Created();
+            _context.categories.Remove(category);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }
