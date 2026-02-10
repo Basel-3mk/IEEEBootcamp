@@ -16,14 +16,14 @@ public class DepartmentController : ControllerBase
         _context = context;
     }
 
-    [HttpGet]
+    [HttpGet ("Get_All_Departments")]
     public IActionResult GetDepartments()
     {
         var departments = _context.departments.ToList();
         return Ok(departments);
     }
 
-    [HttpGet]
+    [HttpGet ("Get_First_Department")]
     public IActionResult GetFirstDepartment()
     {
         var department = _context.departments.First();
@@ -39,7 +39,7 @@ public class DepartmentController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost ("Post_Department")]
     public IActionResult AddDepartment([FromBody] string newName)
     {
         if (newName.Length > 20)
@@ -60,7 +60,7 @@ public class DepartmentController : ControllerBase
         }
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("Put_{id}")]
     public IActionResult UpdateDepartment([FromRoute] Guid oldId, [FromBody] string newName)
     {
         var department = _context.departments.Find(oldId);
@@ -83,7 +83,7 @@ public class DepartmentController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("Delete_{id}")]
     public IActionResult DeleteDepartment([FromRoute] Guid id)
     {
         var department = _context.departments.Find(id);

@@ -18,7 +18,7 @@ public class EmployeeController : ControllerBase
         _context = context;
     }
 
-    [HttpGet]
+    [HttpGet ("Get_All_Employees")]
     public IActionResult GetEmployees()
     {
         var employees = _context.employees.Include(curEmployee => curEmployee.Department).Select(curEmployee => new EmployeeResponseDTO
@@ -32,7 +32,7 @@ public class EmployeeController : ControllerBase
         return Ok(employees);
     }
 
-    [HttpGet]
+    [HttpGet ("Get_First_Employee")]
     public IActionResult GetFirstEmployee()
     {
         var employee = _context.employees.Include(curEmployee => curEmployee.Department).Select(curEmployee => new EmployeeResponseDTO
@@ -54,7 +54,7 @@ public class EmployeeController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost ("Post_Employee")]
     public IActionResult AddEmployee([FromBody] EmployeeRequestDTO employeeDTO)
     {
         Employee newEmployee = new Employee
@@ -69,7 +69,7 @@ public class EmployeeController : ControllerBase
         return Created();
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("Put_{id}")]
     public IActionResult UpdateEmployee([FromRoute] Guid id, [FromBody] EmployeeRequestDTO employeeDTO)
     {
         var oldEmployee = _context.employees.Find(id);
@@ -99,7 +99,7 @@ public class EmployeeController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("Delete_{id}")]
     public IActionResult DeleteEmployee([FromRoute] Guid id)
     {
         var employee = _context.employees.Find(id);
