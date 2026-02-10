@@ -23,10 +23,10 @@ public class DepartmentController : ControllerBase
         return Ok(departments);
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetDepartmentById([FromRoute] Guid id)
+    [HttpGet]
+    public IActionResult GetFirstDepartment()
     {
-        var department = _context.departments.Find(id);
+        var department = _context.departments.First();
 
         if (department == null)
         {

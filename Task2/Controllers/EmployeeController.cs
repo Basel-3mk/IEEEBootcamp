@@ -32,8 +32,8 @@ public class EmployeeController : ControllerBase
         return Ok(employees);
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetEmployeeById([FromRoute] Guid id)
+    [HttpGet]
+    public IActionResult GetFirstEmployee()
     {
         var employee = _context.employees.Include(curEmployee => curEmployee.Department).Select(curEmployee => new EmployeeResponseDTO
         {
