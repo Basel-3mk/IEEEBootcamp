@@ -18,7 +18,7 @@ namespace Training.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet ("Get_All_Products")]
         public IActionResult GetProducts()
         {
             var products = _context.products.Include(curProduct => curProduct.Category).Select(curProduct => new ProductResponseDTO
@@ -33,8 +33,8 @@ namespace Training.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetProductById(Guid id)
+        [HttpGet("Get_First_Product")]
+        public IActionResult GetFirstProduct()
         {
             var product = _context.products.Include(curProduct => curProduct.Category).Select(curProduct => new ProductResponseDTO
             {
@@ -56,7 +56,7 @@ namespace Training.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost ("Post_Product")]
         public IActionResult AddProduct([FromBody] ProductRequestDTO productDTO)
         {
             Product newProduct = new Product
@@ -72,7 +72,7 @@ namespace Training.Controllers
             return Created();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Put_{id}")]
         public IActionResult UpdateProduct([FromRoute] Guid id, [FromBody] ProductRequestDTO productDTO)
         {
             var oldProduct = _context.products.Find(id);
@@ -98,7 +98,7 @@ namespace Training.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete_{id}")]
         public IActionResult DeleteCategory([FromRoute] Guid id)
         {
             var product = _context.products.Find(id);

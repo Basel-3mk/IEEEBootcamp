@@ -16,17 +16,17 @@ public class CategoryController : ControllerBase
         _context = context;
     }
 
-    [HttpGet]
+    [HttpGet ("Get_All_Categories")]
     public IActionResult GetCategories()
     {
         var categories = _context.categories.ToList();
         return Ok(categories);
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetCategoryById(Guid id)
+    [HttpGet ("Get_First_Category")]
+    public IActionResult GetFirstCategory()
     {
-        var category = _context.categories.Find(id);
+        var category = _context.categories.First();
 
         if (category == null)
         {
@@ -39,7 +39,7 @@ public class CategoryController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost ("Post_Category")]
     public IActionResult AddCategory([FromBody] string newName)
     {
         if (newName.Length > 20)
@@ -55,7 +55,7 @@ public class CategoryController : ControllerBase
         }
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("Put_{id}")]
     public IActionResult UpdateCategory([FromRoute] Guid id, [FromBody] string newName)
     {
         var oldCategory = _context.categories.Find(id);
@@ -78,7 +78,7 @@ public class CategoryController : ControllerBase
         }
     }
 
-    [HttpDelete ("{id}")]
+    [HttpDelete ("Delete_{id}")]
     public IActionResult DeleteCategory([FromRoute] Guid id)
     {
         var category = _context.categories.Find(id);
